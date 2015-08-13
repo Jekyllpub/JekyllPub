@@ -1,6 +1,6 @@
 # Jekyll Pub
 
-By [Sebastian Lopez](http://github.com/sebastian9] and [ZtuX](http://github.com/ztux)
+By [Sebastian Lopez](http://github.com/sebastian99 and [ZtuX](http://github.com/ztux)
 
 Jekyll is a static site generator built with Ruby that uses Shopify's Liquid as a templating language. It is simple, meaning it's got no databases or complicated configurations; static, since it generates HTML/CSS and Javascript files ready to deploy; and blog aware, thanks to its many built-in functionalities.
 

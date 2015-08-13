@@ -1,0 +1,132 @@
+.row
+  .medium-12.columns
+    %br
+    %h2 New Article
+    %hr
+  = form_for @article do |f|
+    .medium-12.columns
+      = f.text_field :author, value: @user, type: "hidden"
+      %h4 Title
+      = f.text_field :title
+    .medium-3.columns
+      %h4 Category
+      = f.select :category, options_for_select(%w[cine musica fotografia graphique letras])
+    .medium-4.columns
+      %h4 Layout
+      = f.select :layout, options_for_select(%w[post])
+    .medium-5.columns
+      %h4 Youtube Link
+      = f.text_field :video
+    .medium-7.columns  
+      %h4 Post Excerpt
+      = f.text_area :excerpt, rows: 5
+    .medium-4.columns
+      %h4 Post Thumbnail
+      = f.file_field :thumbnail
+      %h4 Published
+      = f.check_box :published
+    .medium-12.columns
+      %hr
+    .medium-7.columns
+      %h4 Article
+      = f.text_area :content,  rows: 25, value: (@lorem + %(\n\n) + @lorem + %(\n\n) + @lorem)
+    .medium-5.columns
+      %ul.accordion{"data-accordion" => ""}
+        %h4 Syntax
+        %li.accordion-navigation
+          %a{:href => "#panel1a"} Title
+          #panel1a.content
+            .row
+              .medium-6.columns
+                %table
+                  %theader
+                    %th Syntax
+                    %th Result
+                  %tbody
+                    %tr
+                      %td
+                        :plain
+                          # 1 <br><br>
+                      %td
+                        %h1 1
+                    %tr
+                      %td
+                        :plain
+                          ## 2 <br><br>
+                      %td
+                        %h2 2
+              .medium-6.columns
+                %table
+                  %theader
+                    %th Syntax
+                    %th Result
+                  %tbody
+                    %tr
+                      %td
+                        :plain
+                          ### 3 <br><br>
+                      %td
+                        %h3 3
+                    %tr
+                      %td
+                        :plain
+                          #### 4 <br><br>
+                      %td
+                        %h4 4
+                    %tr
+                      %td
+                        :plain
+                          ##### 5 <br><br>
+                      %td
+                        %h5 5
+        %li.accordion-navigation
+          %a{:href => "#panel2a"} Bold, Emphasis y Horizontal Rule
+          #panel2a.content.active
+            .row
+              .medium-12.columns
+                %table
+                  %theader
+                    %th Syntax
+                    %th Result
+                  %tbody
+                    %tr
+                      %td
+                        **Bold**
+                      %td
+                        %b Bold
+                    %tr
+                      %td
+                        **Emphasis**
+                      %td
+                        %em Emphasis
+                    %tr
+                      %td
+                        Horizontal Rule:<br><br>
+                        :plain
+                          --------------------
+                      %td
+                        Horizontal Rule:
+                        %hr
+        %li.accordion-navigation
+          %a{:href => "#panel3a"} Links and Images
+          #panel3a.content
+            .row
+              .medium-12.columns
+                %table
+                  %theader
+                    %th Object
+                    %th Syntax
+                    %th Result
+                  %tbody
+                    %tr
+                      %td Link
+                      %td [Link](http://example.com/Link)
+                      %td
+                        %a{href: "#"} Link
+                    %tr
+                      %td Image
+                      %td ![Name](http://the.im/-\ge/adress)
+                      %td
+                        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTr8kJTMO1irQd5BHJg04Iy5B_BxvxtaVTErB2gH-eIr6XC3JZY">
+    .medium-12.columns
+      = f.submit "Save", class: "button"

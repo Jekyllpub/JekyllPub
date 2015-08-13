@@ -1,0 +1,13 @@
+%nav.top-bar{"data-topbar" => "", :role => "navigation"}
+  %ul.title-area
+    %li.name
+      %h1
+        = link_to "Jekyll Pub", root_path 
+    %li.toggle-topbar.menu-icon
+      %a{:href => "#"}
+        %span
+  %section.top-bar-section
+    %ul.right
+      - if logged_in?
+        %li
+          = link_to "Log Out", logout_path, method: "delete"

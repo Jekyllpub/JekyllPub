@@ -1,0 +1,6 @@
+.row
+  - @articles.each do |article|
+    %h3
+      = article.name
+  	:markdown
+      #{show_article}

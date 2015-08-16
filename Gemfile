@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Rspec
+gem 'rspec', '~> 3.3.0'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -52,5 +54,14 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # For test: https://github.com/rspec/rspec-rails
+  gem 'rspec-rails', '~> 3.3.3'
+
+  # FactoryGrirl: https://github.com/thoughtbot/factory_girl_rails
+  gem 'factory_girl_rails', '~> 4.5.0'
+
+  # Random Data: https://github.com/stympy/faker
+  gem 'faker', '~> 1.4.3'
 end
 

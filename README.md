@@ -18,6 +18,14 @@ So this is what Jekyll Pub means to give a solution for. Jekyll Pub is a rails a
 
 We encourage you tu contribute with for opening the world of internet content creation to more people. Email at contacto@sebastianls.com
 
+# TO DO
+
++ User CRUD
++ Admin activation
++ Paperclip-Dropbox gem Integration
++ Article CRUD
++ Tests and Documentation
+
 # License
 
 The MIT License (MIT)

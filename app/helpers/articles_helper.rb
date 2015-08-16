@@ -58,12 +58,13 @@ module ArticlesHelper
   # Prepares the post with a YAML frontmatter
   def format_content(author = nil, excerpt = nil, thumbnail_path = nil, category = nil, layout = nil, body = nil, video = nil)
     unless video.nil?
-     return %(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body}\n\n***\n\n#{embedded_video(video)})
-    elsif layout.nil?
-     return %(#{body}\n\n***\n\n#{embedded_video(video)})
-    else
-     return %(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body}) 
-    end
+			%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body}\n\n***\n\n#{embedded_video(video)})
+			if layout.nil?
+			%(#{body}\n\n***\n\n#{embedded_video(video)})
+			else
+				%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body})
+			end
+		end
   end
 
   def show_post(record)

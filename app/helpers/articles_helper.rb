@@ -70,13 +70,13 @@ module ArticlesHelper
       # Joins the frontmatter's sections
       yaml = a << b << c
       # Constructs the body depending on the presence of a video
-      body = %(#{paramenters[:body]}) 
+      body = %(#{parameters[:body]}) 
       body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
       # Constructs the full post
       yaml << body
     else
       # Constructs the body depending on the presence of a video
-      body = %(#{paramenters[:body]})
+      body = %(#{parameters[:body]})
       body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
     end
   end
@@ -88,7 +88,7 @@ module ArticlesHelper
 
   # Publish a post using Octokit.rb
   def publish_post(record)
-    client = Octokit::Client.new(:access_token => "<40 char token>")
+    client = Octokit::Client.new(:access_token => "4eb699255873f5bebfec3def3453ea82eaee7da4")
     # Git Repo and commit variables
     repo = "jekyllpub/jekyllpub.github.io"
     post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"

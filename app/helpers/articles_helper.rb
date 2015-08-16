@@ -61,7 +61,6 @@ module ArticlesHelper
   end
 
   # Prepares the post with a YAML frontmatter
-<<<<<<< HEAD
   def format_content(parameters = {})
     if parameters[:layout]
       # Constructs the frontmatter in three different sections
@@ -80,17 +79,6 @@ module ArticlesHelper
       body = %(#{paramenters[:body]})
       body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
     end
-=======
-  def format_content(author = nil, excerpt = nil, thumbnail_path = nil, category = nil, layout = nil, body = nil, video = nil)
-    unless video.nil?
-			%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body}\n\n***\n\n#{embedded_video(video)})
-			if layout.nil?
-			%(#{body}\n\n***\n\n#{embedded_video(video)})
-			else
-				%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body})
-			end
-		end
->>>>>>> 04e6b509d27c24a351eda606d9c33c2bb551bed8
   end
 
   # Publish a post using Octokit.rb

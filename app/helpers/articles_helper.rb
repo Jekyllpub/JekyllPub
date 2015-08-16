@@ -95,7 +95,7 @@ module ArticlesHelper
     body = record.content
     video = record.video
     content = format_content(
-              author: author, excerpt: excerpt, thumbnail: thumbnail_url, date: now
+              author: author, excerpt: excerpt, thumbnail: thumbnail_url, date: now,
               category: category, layout: layout, body: body, video: video)
     client.create_contents(repo, post_path, message, content)
   end

@@ -60,8 +60,8 @@ module ArticlesHelper
     %(<iframe width="560" height="315" src="https://www.youtube.com/embed/#{video_id(s)}?rel=0" frameborder="0" allowfullscreen></iframe>)
   end
 
-  # Prepares the post with a YAML frontmatter
-  def format_content(parameters = {})
+  # Formats the Article
+  def format_article(parameters = {})
     if parameters[:layout]
       # Constructs the frontmatter in three different sections
       a = %(---\ncategory: #{parameters[:category]}\nlayout: #{parameters[:layout]}\n)
@@ -81,13 +81,20 @@ module ArticlesHelper
     end
   end
 
+  # Formats Article content for index action
+  def show_article(record)
+    format_article( body: record.content, video: record.video )
+  end
+
   # Publish a post using Octokit.rb
   def publish_post(record)
     client = Octokit::Client.new(:access_token => "<40 char token>")
+    # Git Repo and commit variables
     repo = "jekyllpub/jekyllpub.github.io"
     post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"
     message = "Commit post #{record.title}"
-    content_parameters = {
+    # Define parameters for article creation
+    article_parameters = {
       author: record.author,
       excerpt: record.excerpt,
       thumbnail_url: "http://jekyllpub.herokuapp.com#{record.thumbnail.url}",
@@ -97,7 +104,6 @@ module ArticlesHelper
       video: record.video,
       date: now
     }
-    content = format_content(content_parameters)
-    client.create_contents(repo, post_path, message, content)
+    client.create_contents(repo, post_path, message, format_article(article_parameters))
   end
 end

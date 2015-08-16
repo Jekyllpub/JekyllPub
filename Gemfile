@@ -8,7 +8,7 @@ gem 'foundation-rails', '~> 5.5.2.1'
 # Use HTML Abstraction Markup Language gem
 gem 'haml', '~> 4.0.6'
 # Use Redcarpet as a Markdown to (X)HTML parser
-# gem 'redcarpet', '~> 3.3.2'
+gem 'redcarpet', '~> 3.3.2'
 # Use paperclip for image processing
 gem "paperclip", "~> 4.3"
 # Use paperclip-dropbox as a paperclip extension

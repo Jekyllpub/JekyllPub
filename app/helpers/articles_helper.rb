@@ -83,7 +83,6 @@ module ArticlesHelper
 
   # Publish a post using Octokit.rb
   def publish_post(record)
-    content_parameters = {}
     client = Octokit::Client.new(:access_token => "<40 char token>")
     repo = "jekyllpub/jekyllpub.github.io"
     post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"

@@ -83,26 +83,22 @@ module ArticlesHelper
 
   # Publish a post using Octokit.rb
   def publish_post(record)
+    content_parameters = {}
     client = Octokit::Client.new(:access_token => "<40 char token>")
     repo = "jekyllpub/jekyllpub.github.io"
     post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"
     message = "Commit post #{record.title}"
-    author = record.author
-    excerpt = record.excerpt
-    thumbnail_url = "http://jekyllpub.herokuapp.com#{record.thumbnail.url}"
-    category = record.category
-    layout = record.layout
-    body = record.content
-    video = record.video
-    content = format_content(
-              author: author, excerpt: excerpt, thumbnail: thumbnail_url, date: now,
-              category: category, layout: layout, body: body, video: video)
+    content_parameters = {
+      author: record.author,
+      excerpt: record.excerpt,
+      thumbnail_url: "http://jekyllpub.herokuapp.com#{record.thumbnail.url}",
+      category: record.category,
+      layout: record.layout,
+      body: record.content,
+      video: record.video,
+      date: now
+    }
+    content = format_content(content_parameters)
     client.create_contents(repo, post_path, message, content)
-  end
-
-  def all_articles
-    client = Octokit::Client.new(:access_token => "<40 char token>")
-    repo = "jekyllpub/jekyllpub.github.io"
-    client.contents(repo, path: "_posts/")
   end
 end

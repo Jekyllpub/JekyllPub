@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
 	before_action :logged_in_user
 	
 	def index
-		@articles = all_articles
 	end
 
 	def new
@@ -15,7 +14,7 @@ class ArticlesController < ApplicationController
 	def create
 		@article = Article.new(article_params)
 		if @article.save
-			redirect_to "http://dodecaedro2015.github.io"
+			redirect_to "http://jekyllpub.github.io"
 			publish_post @article
 		else
 			flash[:warning] = "El artículo no fue guardado"

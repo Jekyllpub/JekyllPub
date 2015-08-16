@@ -2,6 +2,7 @@
 %br
 .row
   .medium-6.medium-offset-3.columns
+    %h1.text-center Log In
     - if flash[:alert]
       .alert-box.alert.radius(data-alert)
         = flash[:alert]
@@ -12,3 +13,4 @@
       = f.label :password
       = f.password_field :password
       = f.submit "Log In", class: "button radius right"
+    = link_to "Sign Up", signup_path

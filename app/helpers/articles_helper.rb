@@ -97,13 +97,14 @@ module ArticlesHelper
     article_parameters = {
       author: record.author,
       excerpt: record.excerpt,
-      thumbnail_url: "http://jekyllpub.herokuapp.com#{record.thumbnail.url}",
+      thumbnail_url: record.thumbnail.url,
       category: record.category,
       layout: record.layout,
       body: record.content,
       video: record.video,
       date: now
     }
+    # Create Article with Octokit
     client.create_contents(repo, post_path, message, format_article(article_parameters))
   end
 end

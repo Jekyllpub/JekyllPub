@@ -9,8 +9,6 @@ gem 'foundation-rails', '~> 5.5.2.1'
 gem 'haml', '~> 4.0.6'
 # Use Redcarpet as a Markdown to (X)HTML parser
 gem 'redcarpet', '~> 3.3.2'
-# Use paperclip for image processing
-gem "paperclip", "~> 4.3"
 # Use paperclip-dropbox as a paperclip extension
 gem "paperclip-dropbox", ">= 1.1.7"
 # Use Octokit for talking to the github API
@@ -25,7 +23,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

@@ -71,13 +71,13 @@ module ArticlesHelper
       yaml = a << b << c
       # Constructs the body depending on the presence of a video
       body = %(#{parameters[:body]}) 
-      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
+      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) unless parameters[:video].blank?
       # Constructs the full post
       yaml << body
     else
       # Constructs the body depending on the presence of a video
       body = %(#{parameters[:body]})
-      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
+      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) unless parameters[:video].blank?
     end
   end
 
@@ -88,22 +88,23 @@ module ArticlesHelper
 
   # Publish a post using Octokit.rb
   def publish_post(record)
-    client = Octokit::Client.new(:access_token => "4eb699255873f5bebfec3def3453ea82eaee7da4")
+    client = Octokit::Client.new(:access_token => "3d07581ff92626f9ccea67ecb00c9f1e6266cd90")
     # Git Repo and commit variables
     repo = "jekyllpub/jekyllpub.github.io"
     post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"
     message = "Commit post #{record.title}"
     # Define parameters for article creation
     article_parameters = {
-      author: record.author,
+      author: record.author.capitalize,
       excerpt: record.excerpt,
-      thumbnail_url: record.thumbnail.url,
+      thumbnail_url: record.thumbnail,
       category: record.category,
       layout: record.layout,
       body: record.content,
       video: record.video,
       date: now
     }
+    article_parameters[:published] = "true" if record.published = 1
     # Create Article with Octokit
     client.create_contents(repo, post_path, message, format_article(article_parameters))
   end

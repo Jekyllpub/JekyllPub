@@ -1,20 +1,25 @@
 module ArticlesHelper
 
-  # returns the current date in dd-mm-yy format
+  # Returns the current date and hour
   def now
-    t = Time.now
-    t = t.to_s
-    t = t.split(' ')
-    t[0]
+    t = Time.now # Get server hour
+    t -= (60*60*5) # Get local hour
+    t = t.to_s # YYYY-MM-DD HH:MM:SS +/-TTTT
   end
 
-  # returns the string replacing spaces for hyphens
+  # Returns today's date
+  def today
+    t = now
+    t = t.split(" ")
+    t[0] # YYYY-MM-DD
+  end
+
+  # Returns the string replacing spaces for hyphens
   def hyphenize(s)
     s.gsub!(' ', '-')
-    return s
   end
 
-  # returns the string capitalized replacing spaces for hyphens
+  # Returns the string capitalized replacing spaces for hyphens
   def dehyphenize(s)
     s.gsub!(/(\.)\w+/, "")
     a = s.split("-")
@@ -24,10 +29,10 @@ module ArticlesHelper
       s.<<(word.capitalize).<<(" ") if i > 2
       i+=1
     end
-    return s
+    s
   end
 
-  # returns a youtube link as an id
+  # Returns a youtube link as an id
   def video_id(s)
     if s.include? (%(src="https://www.youtube.com/embed/))
       return s
@@ -50,48 +55,55 @@ module ArticlesHelper
     end
   end
 
-  # returns a youtube video in its embedded format
+  # Returns a youtube video in its embedded format
   def embedded_video(s)
     %(<iframe width="560" height="315" src="https://www.youtube.com/embed/#{video_id(s)}?rel=0" frameborder="0" allowfullscreen></iframe>)
   end
 
-  # Prepares the post with a YAML frontmatter
-  def format_content(author = nil, excerpt = nil, thumbnail_path = nil, category = nil, layout = nil, body = nil, video = nil)
-    unless video.nil?
-			%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body}\n\n***\n\n#{embedded_video(video)})
-			if layout.nil?
-			%(#{body}\n\n***\n\n#{embedded_video(video)})
-			else
-				%(---\ncategory: #{category}\nlayout: #{layout}\nauthor: #{author}\nexcerpt: #{excerpt}\nthumbnail: #{thumbnail_path}\ndate: #{now}\n---\n#{body})
-			end
-		end
+  # Formats the Article
+  def format_article(parameters = {})
+    if parameters[:layout]
+      # Constructs the frontmatter in three different sections
+      a = %(---\ncategory: #{parameters[:category]}\nlayout: #{parameters[:layout]}\n)
+      b = %(author: #{parameters[:author]}\nexcerpt: #{parameters[:excerpt]}\n)
+      c = %(thumbnail: #{parameters[:thumbnail]}\ndate: #{now}\n---\n)
+      # Joins the frontmatter's sections
+      yaml = a << b << c
+      # Constructs the body depending on the presence of a video
+      body = %(#{parameters[:body]}) 
+      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
+      # Constructs the full post
+      yaml << body
+    else
+      # Constructs the body depending on the presence of a video
+      body = %(#{parameters[:body]})
+      body << %(\n\n***\n\n#{embedded_video(parameters[:video])}) if parameters[:video]
+    end
   end
 
-  def show_post(record)
-    body = record.content
-    embedded_video = record.video
-    return format_content()
+  # Formats Article content for index action
+  def show_article(record)
+    format_article( body: record.content, video: record.video )
   end
 
+  # Publish a post using Octokit.rb
   def publish_post(record)
-    client = Octokit::Client.new(:access_token => "dcd06b46ee5e7c0f96c4c4510bedd7e632d185cd")
-    repo = "dodecaedro2015/dodecaedro2015.github.io"
-    post_path = "_posts/#{now}-#{hyphenize(record.title).downcase}.markdown"
+    client = Octokit::Client.new(:access_token => "4eb699255873f5bebfec3def3453ea82eaee7da4")
+    # Git Repo and commit variables
+    repo = "jekyllpub/jekyllpub.github.io"
+    post_path = "_posts/#{today}-#{hyphenize(record.title).downcase}.markdown"
     message = "Commit post #{record.title}"
-    author = record.author
-    excerpt = record.excerpt
-    thumbnail_url = "http://dodecaedro.herokuapp.com#{record.thumbnail.url}"
-    category = record.category
-    layout = record.layout
-    body = record.content
-    video = record.video
-    content = format_content(author, excerpt, thumbnail_url, category, layout, body, video)
-    client.create_contents(repo, post_path, message, content)
-  end
-
-  def all_articles
-    client = Octokit::Client.new(:access_token => "dcd06b46ee5e7c0f96c4c4510bedd7e632d185cd")
-    repo = "dodecaedro2015/dodecaedro2015.github.io"
-    client.contents(repo, path: "_posts/")
+    # Define parameters for article creation
+    article_parameters = {
+      author: record.author,
+      excerpt: record.excerpt,
+      thumbnail_url: "http://jekyllpub.herokuapp.com#{record.thumbnail.url}",
+      category: record.category,
+      layout: record.layout,
+      body: record.content,
+      video: record.video,
+      date: now
+    }
+    client.create_contents(repo, post_path, message, format_article(article_parameters))
   end
 end

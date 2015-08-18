@@ -14,9 +14,9 @@ class ArticlesController < ApplicationController
 
 	def create
 		@article = Article.new article_params
-		if @article.save
+		if @article.save # Save to the database
 			redirect_to "http://jekyllpub.github.io"
-			publish_post @article
+			publish_post @article # Save to github
 		else
 			flash[:warning] = "El artículo no fue guardado"
 			render 'new'
@@ -31,9 +31,9 @@ class ArticlesController < ApplicationController
 
 	def update
 		@article = Article.find params[:id]
-		if @article.update_attributes article_params
+		if @article.update_attributes article_params # Update the database
 			redirect_to "http://jekyllpub.github.io"
-			update_post @article
+			update_post @article # Update github
 		else
 			flash[:warning] = "El artículo no fue guardado"
 			render 'edit'
@@ -49,7 +49,7 @@ class ArticlesController < ApplicationController
 	end
 
 	private
-	
+
 	def article_params
 		params.require(:article).permit :author, :title, :excerpt, :video,
 										:category, :published, :thumbnail,

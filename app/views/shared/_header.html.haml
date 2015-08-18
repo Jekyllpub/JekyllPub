@@ -9,5 +9,7 @@
 	%section.top-bar-section
 		%ul.right
 			- if logged_in?
+				%li= link_to "New Article", new_article_path
+				%li= link_to "Articles", articles_path
 				%li= link_to "Settings", user_path(current_user)
 				%li= link_to "Log Out", logout_path, method: "delete"

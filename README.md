@@ -22,8 +22,8 @@ We encourage you tu contribute with for opening the world of internet content cr
 
 + User CRUD
 + Admin activation
-+ Paperclip-Dropbox gem Integration
-+ Article CRUD
++ Paperclip gem Integration -> Done
++ Article CRUD -> Done
 + Tests and Documentation
 
 # License

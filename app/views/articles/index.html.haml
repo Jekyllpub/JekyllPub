@@ -1,6 +1,28 @@
 .row
-  - @articles.each do |article|
-    %h3
-      = article.title
-    :markdown
-      #{show_article(article)}
+  .medium-12.columns
+    - @articles.each do |article|
+      .row
+        .medium-12.columns
+          %h1= article.title
+          %hr
+        .medium-8.columns
+          :markdown
+            #{show_article(article)[:body]}
+        .medium-4.columns
+          = image_tag article.thumbnail, alt: article.title
+          %hr
+          :markdown
+            #{ show_article(article)[:video] unless article.video.blank? }
+        .medium-12.columns
+          %ul.inline-list
+            %li= link_to "Update", edit_article_path(article)
+            %li= link_to "See it Live", live_article_path(article)
+            %li= link_to "Delete", article_path(article), method: :delete
+  %br
+
+:javascript
+  $('iframe').wrap('<div class="flex-video"></div>');
+  $(document).foundation();
+  $('.orbit-container:has(.index-orbit)').wrap('<div class="small-12 medium-9 columns show-for-large-only"></div>');
+  $('.orbit-container:has(.index-orbit)').addClass('show-for-large-only');
+  $('div:has(.orbit-container)').append('<br class="show-for-large-only"><br class="show-for-large-only">');

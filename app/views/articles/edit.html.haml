@@ -1,35 +1,33 @@
 .row
   .medium-12.columns
     %br
-    %h2 New Article
+    %h2 
+      Update Article:
+      =@article.title
     %hr
   = form_for @article do |f|
-    .medium-12.columns
-      = f.text_field :author, value: @user, type: "hidden"
-      %h4 Title
-      = f.text_field :title
     .medium-3.columns
       %h4 Category
-      = f.select :category, options_for_select(%w[music photography])
+      = f.select :category, options_for_select(%w[music photography]), value: @article.category
     .medium-4.columns
       %h4 Layout
-      = f.select :layout, options_for_select(%w[post gallery])
+      = f.select :layout, options_for_select(%w[post gallery]), value: @layout
     .medium-5.columns
       %h4 Youtube Link
-      = f.text_field :video
+      = f.text_field :video, value: @article.video
     .medium-7.columns  
-      %h4 Post Excerpt
-      = f.text_area :excerpt, rows: 5
-    .medium-4.columns
       %h4 Post Thumbnail
-      = f.file_field :thumbnail
+      = image_tag @article.thumbnail.url, class: "th"
+    .medium-5.columns
+      %h4 Post Excerpt
+      = f.text_area :excerpt, rows: 5, value: @article.excerpt
       %h4 Published
-      = f.check_box :published
+      = f.check_box :published, value: @article.published
     .medium-12.columns
       %hr
     .medium-7.columns
       %h4 Article
-      = f.text_area :content,  rows: 25, value: (@lorem + %(\n\n) + @lorem + %(\n\n) + @lorem)
+      = f.text_area :content,  rows: 25, value: @article.content
     .medium-5.columns
       %ul.accordion{"data-accordion" => ""}
         %h4 Syntax

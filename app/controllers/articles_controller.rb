@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 	before_action :logged_in_user
 	
 	def index
-		@articles = Article.all
+		@articles = Article.all.reverse
 	end
 
 	def new
@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def create
-		@article = Article.new(article_params)
+		@article = Article.new article_params
 		if @article.save
 			redirect_to "http://jekyllpub.github.io"
 			publish_post @article
@@ -23,20 +23,46 @@ class ArticlesController < ApplicationController
 		end
 	end
 
-	private
-		def article_params
-			params.require(:article).permit(:author, :title, :excerpt, :video,
-											:category, :published, :thumbnail,
-											:layout, :content)
+	def edit
+		@article = Article.find params[:id]
+		# predefine layout due to view conflict
+		@layout = @article.layout
+	end
+
+	def update
+		@article = Article.find params[:id]
+		if @article.update_attributes article_params
+			redirect_to "http://jekyllpub.github.io"
+			update_post @article
+		else
+			flash[:warning] = "El artículo no fue guardado"
+			render 'edit'
 		end
+	end
 
-		# Before filters
+	def destroy
+		@article = Article.find params[:id]
+		# Destroy article using Octokit.rb
+		destroy_article @article
+		# Delete article form the database
+		@article.delete
+	end
 
-	    # Confirms a logged-in user
-	    def logged_in_user
-	      unless logged_in?
-	        flash.now[:alert] = "Porfavor inicia sesión"
-	        redirect_to root_path
-	      end
-	    end
+	private
+	
+	def article_params
+		params.require(:article).permit :author, :title, :excerpt, :video,
+										:category, :published, :thumbnail,
+										:layout, :content
+	end
+
+	# Before filters
+
+    # Confirms a logged-in user
+    def logged_in_user
+      unless logged_in?
+        flash.now[:alert] = "Porfavor inicia sesión"
+        redirect_to root_path
+      end
+    end
 end

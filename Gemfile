@@ -9,8 +9,8 @@ gem 'foundation-rails', '~> 5.5.2.1'
 gem 'haml', '~> 4.0.6'
 # Use Redcarpet as a Markdown to (X)HTML parser
 gem 'redcarpet', '~> 3.3.2'
-# Use paperclip-dropbox as a paperclip extension
-gem "paperclip-dropbox", ">= 1.1.7"
+# Use paperclip as an image processor
+gem "paperclip", "~> 4.3"
 # Use Octokit for talking to the github API
 gem "octokit", "~> 4.0"
 # Use ActiveModel has_secure_password

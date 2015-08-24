@@ -22,6 +22,8 @@ We encourage you tu contribute with for opening the world of internet content cr
 
 + User CRUD
 + Admin activation
++ Advanced Sessions
++ Reader subscription mailer
 + Paperclip gem Integration -> Done
 + Article CRUD -> Done
 + Tests and Documentation

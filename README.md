@@ -31,6 +31,8 @@ Email at contacto[at]sebastianls[dot]com
 + Tests and Documentation
 + Facebook and Twitter API integration for automatic updates
 + Github App Authorization
++ Advanced User Sessions
++ Reader subscription mailer
 
 # License
 

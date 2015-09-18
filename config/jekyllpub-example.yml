@@ -1,4 +1,6 @@
 # The name of this file must be changed to jekyllpub.yml
+# In order to add this KEYS to heroku when the file is on .gitignore use this command:
+# heroku config:add REPOSITORY=<YOUR REPO> ACCESS_TOKEN=<YOUR ACCESS TOKEN>
 
 REPOSITORY: "jekyllpub/jekyllpub.github.io" # your repository must be in the place of this
 ACCESS_TOKEN: "<YOUR GITHUB TOKEN>"

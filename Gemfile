@@ -13,6 +13,8 @@ gem 'redcarpet', '~> 3.3.2'
 gem "paperclip", "~> 4.3"
 # Use Octokit for talking to the github API
 gem "octokit", "~> 4.0"
+# Use Koala fot talking to the Facebook API
+gem "koala", "~> 2.2"
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use SCSS for stylesheets

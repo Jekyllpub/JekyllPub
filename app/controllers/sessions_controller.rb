@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	def new
 		if logged_in?
-			redirect_to new_article_path
+			redirect_to articles_path
 		end
 	end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 		user = User.find_by(username: username.downcase )
 		if user && user.authenticate(params[:session][:password])
 			log_in(user)
-			redirect_to new_article_path
+			redirect_to articles_path
 		else
 			flash.now[:alert] = "Combinación de nombre de usuario y correo erróneos"
 			render 'new'

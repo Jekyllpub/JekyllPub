@@ -1,7 +1,6 @@
 - if @user.errors.any?
-	Se han encontrado
 	= pluralize(@user.errors.count,"error")
-	al crear cuenta
+	creating the account:
 	%ul
 		- @user.errors.full_messages.each do |msg|
 			%li= msg

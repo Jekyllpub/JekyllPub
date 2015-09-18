@@ -1,7 +1,17 @@
 class ArticlesController < ApplicationController
+	include UtilitiesHelper
 	include ArticlesHelper
-	before_action :logged_in_user
 	
+	# initialize Octokit
+	def self.octokit
+		Octokit::Client.new :access_token => ENV["ACCESS_TOKEN"]
+	end
+
+	# Callbacks
+	before_action :logged_in_user
+
+	# Restfull Instance Methods
+
 	def index
 		@articles = Article.all.reverse
 	end
@@ -21,6 +31,11 @@ class ArticlesController < ApplicationController
 			flash[:warning] = "El artículo no fue guardado"
 			render 'new'
 		end
+		# Delete old articles
+		articles = []
+		articles_relation = Article.where("updated_at < ?", 30.days.ago) # Fetch old articles
+		articles_relation.each { |article| articles.push article } # Push old articles into an array
+		ArticleCleanupJob.perform_later articles # Perform the Job with the articles as a parameter
 	end
 
 	def edit
@@ -46,6 +61,7 @@ class ArticlesController < ApplicationController
 		destroy_article @article
 		# Delete article form the database
 		@article.delete
+		redirect_to articles_path
 	end
 
 	private

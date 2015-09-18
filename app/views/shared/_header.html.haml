@@ -13,3 +13,5 @@
 				%li= link_to "Articles", articles_path
 				%li= link_to "Settings", user_path(current_user)
 				%li= link_to "Log Out", logout_path, method: "delete"
+			- else
+				%li= link_to "GitHub", "http://github.com/jekyllpub/jekyllpub", target: "_blank"

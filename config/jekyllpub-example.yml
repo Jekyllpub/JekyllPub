@@ -1,0 +1,5 @@
+# The name of this file must be changed to jekyllpub.yml
+
+REPOSITORY: "jekyllpub/jekyllpub.github.io" # your repository must be in the place of this
+ACCESS_TOKEN: "<YOUR GITHUB TOKEN>"
+FACEBOOK_TOKEN: "<YOUR FACEBOOK TOKEN>"

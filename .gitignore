@@ -96,3 +96,4 @@ bower.json
 # Ignore pow environment settings
 .powenv
 
+/config/jekyllpub.yml

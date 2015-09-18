@@ -32,10 +32,8 @@ class ArticlesController < ApplicationController
 			render 'new'
 		end
 		# Delete old articles
-		articles = []
-		articles_relation = Article.where("updated_at < ?", 30.days.ago) # Fetch old articles
-		articles_relation.each { |article| articles.push article } # Push old articles into an array
-		ArticleCleanupJob.perform_later articles # Perform the Job with the articles as a parameter
+		articles = Article.where("updated_at < ?", 30.days.ago) # Fetch old articles
+		articles.each { |article| article.delete } # Push old articles into an array
 	end
 
 	def edit

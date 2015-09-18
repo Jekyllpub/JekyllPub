@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-ENV.update YAML.load(File.read(File.expand_path('../jekyllpub.yml', __FILE__))) unless ENV.production?
+ENV.update YAML.load(File.read(File.expand_path('../jekyllpub.yml', __FILE__))) unless Rails.env.production?
 
 module JekyllCms
   class Application < Rails::Application
